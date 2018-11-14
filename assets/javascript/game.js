@@ -1,58 +1,69 @@
+
+$(document).ready(function() { 
+//VARIABLES
+
 var winCount = 0;
 var lossCount = 0;
-var guessSum = 10;
+var guessSum = 0;
 var numberToMatch = numberToMatch ();
 
-var numberToMatchText = $("numberToMatchText");
-var guessCountText = $("guessSumText");
-var winCountText = $("winCountText");
-var lossCountText = $("lossCountext");
+//FUNCTIONS
+
+function numberToMatch () {
+    var randomNumber = Math.floor(Math.random() * (120 - 19) ) + 19;
+    return randomNumber;
+};
+
+function crystalValues (){
+    for (var i = 0; i < 4; i++) {
+
+        var imageCrystal = $("<img>");
+            
+        imageCrystal.addClass(" image-fluid m-3 crystal-image");
+        imageCrystal.attr("src", "http://cdn.playbuzz.com/cdn/35910209-2844-45c0-b099-f4d82878d54f/00261fda-4062-4096-81fd-8cf96b9034e8.jpg");
+        imageCrystal.attr("data-crystalvalue", Math.floor(Math.random() * (12 - 1) ) + 1);
+        $("#crystals").append(imageCrystal);
+    };
+};
 
 
 
+//PROCESS    
 
-<div class="container-fluid text-center">
+    $("#numberToMatch").text(numberToMatch);
 
-<div class="row headerRow">
-    <div class="col">
-        <h1 class="display-3">CRYSTAL GAME</h1>
-    </div>
-</div>
+    crystalValues ();
 
-<div class="row contentRow">
-    <div class="col-2 colLeft"></div>
-
-    <div class="col-8 colMid">
-        <h2 class="display-5">Number To Match Is</h2>
-
-        <h2 class="display-5" id="numberToMatchText">?</h2>
-
-        <h3>Your Total:</h3>
-
-        <h4 class="m-1" id="guessSumText">0</h4>
-
-
-        <div class="row m-3 imageRow" id="crystals">
-            <div class="col-3 crystalImage colImage1"><img class="img-fluid" src="assets/images/Diamond.png" alt="Diamond" id="crystal1"
-                    value="crystalValue1"></div>
-            <div class="col-3 crystalImage colImage2"><img class="img-fluid"  src="assets/images/Emerald.png" alt="Emerald" id="crystal2"
-                    value="crystalValue2"></div>
-            <div class="col-3 crystalImage colImage3"><img class="img-fluid"  src="assets/images/Ruby.png" alt="Ruby" id="crystal3"
-                    value="crystalValue3"></div>
-            <div class="col-3 crystalImage colImage4"><img class="img-fluid"  src="assets/images/Sapphire.png" alt="Sapphire"
-                    id="crystal4" value="crystalValue4"></div>
-        </div>
+  
+        $(".crystal-image").on("click", function() {
+    
+            var crystalValue = ($(this).attr("data-crystalvalue"));
+            crystalValue = parseInt(crystalValue);
+            console.log ("The value of this crystal is: " + crystalValue);
+            guessSum = guessSum + crystalValue;
 
         
-        <h3> WINS </h3>
 
-        <h4 class="m-1" id="winCountText"> 0 </h4>
+            if (guessSum === numberToMatch){
+                $("#guessSum").text("You got " + guessSum + "!" + " You Win!");
+                winCount++;
+                $("#winCount").text(winCount);
+                numberToMatch ();
+                crystalValues ();
+                guessSum = 0;
+        
+            } else if (guessSum < numberToMatch){
+                $("#guessSum").text(guessSum);
 
-        <h3> LOSSES </h3>
+            } else {
+                $("#guessSum").text("You went over with " + guessSum + "!" + " Sorry, you lose!");
+                lossCount++;
+                $("#lossCount").text(lossCount);
+                numberToMatch ();
+                crystalValues ();
+                guessSum = 0;
+            }
+        });            
 
-        <h4 class="m-1" id="lossCountText"> 0 </h4>
-    </div>
 
-    <div class="col-2 colRight"></div>
-</div>
-
+})
