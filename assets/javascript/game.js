@@ -10,6 +10,22 @@ $(document).ready(function () {
 
     //FUNCTIONS
 
+    function reset (){
+
+        numberToMatch = randomNumberToMatch();
+        $("#numberToMatch").text(numberToMatch);
+        $("#crystals").empty ();
+        crystalValues ();
+        guessSum = 0;
+        
+        $("#guessSum").text(guessSum);
+
+        setTimeout(function(){
+            $("#message").text("");
+        }, 3000)
+
+    };
+
     function randomNumberToMatch() {
         var randomNumber = Math.floor(Math.random() * (120 - 19)) + 19;
         return randomNumber;
@@ -35,8 +51,7 @@ $(document).ready(function () {
 
     crystalValues();
 
-
-    $(".crystal-image").on("click", function () {
+    $(document).on("click", ".crystal-image", function () {
 
         var crystalValue = ($(this).attr("data-crystalvalue"));
         crystalValue = parseInt(crystalValue);
@@ -44,21 +59,23 @@ $(document).ready(function () {
         guessSum = guessSum + crystalValue;
 
 
-
         if (guessSum === numberToMatch) {
-            $("#guessSum").text("You got " + guessSum + "!" + " You Win!");
+            $("#message").text("You got " + guessSum + "!" + " You Win!");
             winCount++;
             $("#winCount").text(winCount);
+            reset ();
+        }
 
-        } else if (guessSum < numberToMatch) {
-            $("#guessSum").text(guessSum);
-
-        } else {
-            $("#guessSum").text("You went over with " + guessSum + "!" + " Sorry, you lose!");
+        if (guessSum > numberToMatch) {
+            $("#message").text(
+                "You went over with " + guessSum + "!" + " Sorry, you lose!"
+            );
             lossCount++;
             $("#lossCount").text(lossCount);
+            reset();
         }
-    });
 
+        $("#guessSum").text(guessSum);
+    });
 
 })
