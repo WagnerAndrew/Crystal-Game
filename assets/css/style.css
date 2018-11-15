@@ -1,14 +1,19 @@
-/* body {
-    background-image: url("../images/crystalBackground.jpg");
+body {
+    background-image: url("../images/crystal-background.jpg");
+    font-family: 'Fahkwang', sans-serif;
 }
 
-.container-fluid {
+.container {
     background: #ffffff;
-} */
+    opacity: .8;
+}
+
+h1{
+    background: #231616;
+    color: #ffffff;
+}
 
 .crystal-image {
     height: 100px;
     width: 100px;
 }
-
-s
