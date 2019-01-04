@@ -1,6 +1,7 @@
 body {
     background-image: url("../images/crystal-background.jpg");
-    font-family: 'Fahkwang', sans-serif;
+    /* font-family: 'Fahkwang', sans-serif; */
+    font-family: Helvetica, sans-serif;
 }
 
 .container {
